@@ -1,552 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RHYSTIC.AI — Study</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rhystic.ai — Study</title>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    /* Variables */
     :root {
-      --black:   #080806;
-      --bg:      #0c0c0a;
-      --panel:   #111110;
-      --border:  rgba(242,240,235,0.1);
-      --white:   #f2f0eb;
-      --dim:     rgba(242,240,235,0.45);
-      --orange:  #ff4500;
-      --orange2: #ff6b1a;
-      --cyan:    #00ddc0;
-      --green:   #9fe030;
-
-      --font-display: 'Space Mono', 'Courier New', monospace;
-      --font-body:    'Space Grotesk', system-ui, sans-serif;
-      --font-mono:    'Space Mono', monospace;
+      --bg-color: #000;
+      --text-color: #0f0;
+      --accent-color: #ff0;
+      --border-color: rgba(15, 240, 15, 0.5);
+      --font-mono: 'Courier New', monospace;
     }
 
-    html { scroll-behavior: smooth; }
-
+    /* Global Styles */
     body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--white);
-      overflow-x: hidden;
+      font-family: var(--font-mono);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-size: 16px;
+      line-height: 1.6;
+      padding: 2rem;
     }
 
+    /* Scanlines */
     body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 9000; pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(15, 240, 15, 0.1) 2px,
+        rgba(15, 240, 15, 0.1) 4px
       );
-    }
-
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-      display: flex; align-items: stretch;
-      height: 52px;
-      background: var(--black);
-      border-bottom: 1px solid var(--orange);
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: var(--white);
-      text-decoration: none;
-      padding: 0 2rem;
-      display: flex; align-items: center;
-      border-right: 1px solid var(--border);
-    }
-    .nav-logo em { color: var(--orange); font-style: normal; }
-
-    .nav-status {
-      flex: 1;
-      display: flex; align-items: center;
-      padding: 0 2rem;
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      color: var(--dim);
-    }
-    .status-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--cyan);
-      animation: pulse 2s ease-in-out infinite;
-      display: inline-block;
-      margin-right: 0.75rem;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-
-    .nav-links {
-      display: flex; align-items: stretch;
-      border-left: 1px solid var(--border);
-    }
-    .nav-links a {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--dim);
-      text-decoration: none;
-      padding: 0 1.4rem;
-      display: flex; align-items: center;
-      border-right: 1px solid var(--border);
-      transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover { color: var(--white); background: rgba(255,69,0,0.07); }
-    .nav-cta {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--black) !important;
-      background: var(--orange);
-      padding: 0 1.8rem;
-      display: flex; align-items: center;
-      text-decoration: none;
-      font-weight: 700;
-      transition: background 0.2s;
-    }
-    .nav-cta:hover { background: var(--orange2); }
-
-    .hero {
-      min-height: 100vh;
-      padding-top: 52px;
-      display: grid;
-      grid-template-rows: 1fr auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute; inset: 0; pointer-events: none; z-index: 0;
-      background-image:
-        linear-gradient(rgba(242,240,235,0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(242,240,235,0.025) 1px, transparent 1px);
-      background-size: 80px 80px;
-    }
-
-    .hero-glow {
-      position: absolute;
-      width: 700px; height: 700px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,69,0,0.08) 0%, transparent 70%);
-      top: 10%; left: 50%; transform: translateX(-50%);
-      pointer-events: none; z-index: 0;
-    }
-
-    .hero-content {
-      position: relative; z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 6rem 2rem 3rem;
-    }
-
-    .hero-eyebrow {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 2.5rem;
-      display: flex; align-items: center; gap: 0.8rem;
-      opacity: 0; animation: fadeUp 0.6s ease forwards 0.1s;
-    }
-    .hero-eyebrow::before, .hero-eyebrow::after {
-      content: '';
-      display: block;
-      width: 30px; height: 1px;
-      background: var(--cyan);
-      opacity: 0.5;
-    }
-
-    .hero-wordmark {
-      font-family: var(--font-display);
-      font-size: clamp(5rem, 14vw, 13rem);
-      font-weight: 700;
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      color: var(--white);
-      opacity: 0; animation: fadeUp 0.7s ease forwards 0.2s;
-      margin-bottom: 0.08em;
-    }
-    .hero-wordmark .highlight { color: var(--orange); }
-
-    .hero-domain {
-      font-family: var(--font-mono);
-      font-size: clamp(0.8rem, 2vw, 1.1rem);
-      letter-spacing: 0.5em;
-      color: var(--dim);
-      margin-bottom: 3rem;
-      opacity: 0; animation: fadeUp 0.7s ease forwards 0.3s;
-    }
-
-    .hero-rule {
-      width: 1px; height: 60px;
-      background: linear-gradient(to bottom, var(--orange), transparent);
-      margin: 0 auto 3rem;
-      opacity: 0; animation: fadeIn 0.8s ease forwards 0.4s;
-    }
-
-    .hero-desc {
-      font-size: clamp(1rem, 1.6vw, 1.2rem);
-      line-height: 1.7;
-      color: var(--dim);
-      max-width: 520px;
-      margin-bottom: 3.5rem;
-      opacity: 0; animation: fadeUp 0.7s ease forwards 0.5s;
-    }
-
-    .hero-btns {
-      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-      opacity: 0; animation: fadeUp 0.7s ease forwards 0.65s;
-    }
-
-    .btn-a {
-      font-family: var(--font-mono);
-      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 0.85rem 2rem;
-      background: var(--orange); color: var(--black);
-      text-decoration: none; font-weight: 700;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .btn-a::after { content: '→'; transition: transform 0.2s; }
-    .btn-a:hover { background: var(--orange2); transform: translateY(-2px); }
-    .btn-a:hover::after { transform: translateX(3px); }
-
-    .btn-b {
-      font-family: var(--font-mono);
-      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 0.85rem 2rem;
-      background: transparent; color: var(--white);
-      text-decoration: none;
-      border: 1px solid rgba(242,240,235,0.25);
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      transition: border-color 0.2s, color 0.2s, transform 0.2s;
-    }
-    .btn-b:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-2px); }
-
-    .hero-ticker {
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 0.65rem 0;
-      overflow: hidden;
-    }
-    .ticker-track {
-      display: inline-flex; gap: 3rem;
-      animation: ticker 22s linear infinite;
-      white-space: nowrap;
-    }
-    .ticker-item {
-      font-family: var(--font-mono);
-      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(242,240,235,0.25);
-    }
-    .ticker-item b { color: var(--orange); font-weight: 400; margin-right: 0.4rem; }
-    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-    .terminal-section {
-      padding: 6rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 70vh;
-      position: relative;
-    }
-
-    .terminal-section::before {
-      content: '';
-      position: absolute;
-      width: 100%; height: 100%;
-      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,221,192,0.03), transparent);
       pointer-events: none;
+      z-index: 2;
     }
 
+    /* Terminal Container */
     .terminal {
-      border: 1px solid rgba(0,221,192,0.25);
-      border-top: 2px solid var(--cyan);
-      background: #06060a;
-      position: relative; z-index: 1;
-      width: 100%;
-      max-width: 700px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: terminalReveal 0.8s ease forwards 0.3s;
-    }
-
-    @keyframes terminalReveal {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .t-bar {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.65rem 1rem;
-      border-bottom: 1px solid rgba(0,221,192,0.12);
-      background: rgba(0,221,192,0.04);
-    }
-    .t-dot { width:8px; height:8px; border-radius:50%; }
-    .t-d1 { background: var(--orange); }
-    .t-d2 { background: #ffde45; }
-    .t-d3 { background: var(--green); }
-    .t-label {
-      font-family: var(--font-mono);
-      font-size: 0.55rem; letter-spacing: 0.2em; color: rgba(0,221,192,0.5);
-      margin-left: auto;
-    }
-
-    .t-body { padding: 1.5rem 1.2rem; }
-    .t-row {
-      font-family: var(--font-mono);
-      font-size: 0.7rem; line-height: 2;
-    }
-    .t-row .p { color: var(--cyan); }
-    .t-row .c { color: var(--white); }
-    .t-row .o { color: var(--green); }
-    .t-row .d { color: rgba(242,240,235,0.25); }
-    .t-row .e { color: var(--orange); }
-
-    .t-cursor {
-      display: inline-block; width: 7px; height: 0.9em;
-      background: var(--cyan); vertical-align: text-bottom;
-      animation: blink 0.85s step-end infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-    .product-section {
+      border: 1px solid var(--border-color);
+      padding: 1rem;
       max-width: 800px;
       margin: 0 auto;
-      padding: 4rem 2rem 8rem;
-      text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
-    .product-label {
-      font-family: var(--font-mono);
-      font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 1.5rem;
-    }
-
-    .product-name {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1;
-      color: var(--white);
-      margin-bottom: 1.5rem;
-    }
-    .product-name .highlight { color: var(--cyan); }
-
-    .product-desc {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: var(--dim);
-      max-width: 560px;
-      margin: 0 auto 3rem;
-    }
-
-    .product-features {
-      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
-      margin-bottom: 3rem;
-    }
-
-    .product-feature {
-      font-family: var(--font-mono);
-      font-size: 0.6rem; letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--dim);
-      padding: 0.6rem 1rem;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .product-feature:hover {
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    .product-cta {
-      display: inline-flex;
+    /* Terminal Header */
+    .terminal-header {
+      display: flex;
       align-items: center;
-      gap: 0.75rem;
-      font-family: var(--font-mono);
-      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--black);
-      background: var(--cyan);
-      padding: 1rem 2rem;
-      text-decoration: none;
-      font-weight: 700;
-      transition: background 0.2s, transform 0.2s;
+      justify-content: space-between;
+      margin-bottom: 1rem;
     }
-    .product-cta:hover { background: var(--white); transform: translateY(-2px); }
-    .product-cta::after { content: '→'; transition: transform 0.2s; }
-    .product-cta:hover::after { transform: translateX(4px); }
-
-    footer {
-      background: var(--black);
-      border-top: 1px solid var(--border);
+    .terminal-header .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
     }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      padding: 2.5rem 3rem;
-      display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
-    }
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 0.95rem; font-weight: 700; letter-spacing: 0.08em;
-      color: var(--white); text-decoration: none;
-    }
-    .footer-logo em { color: var(--orange); font-style: normal; }
-
-    .footer-links { display: flex; gap: 2rem; }
-    .footer-links a {
-      font-family: var(--font-mono);
-      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: rgba(242,240,235,0.28); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--white); }
-
-    .footer-copy {
-      font-family: var(--font-mono);
-      font-size: 0.55rem; letter-spacing: 0.12em;
-      color: rgba(242,240,235,0.18);
+    .terminal-header .dot.red { background-color: #f00; }
+    .terminal-header .dot.yellow { background-color: #ff0; }
+    .terminal-header .dot.green { background-color: #0f0; }
+    .terminal-header .label {
+      font-size: 0.8rem;
+      color: var(--accent-color);
+      letter-spacing: 0.1rem;
     }
 
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(16px); }
-      to   { opacity:1; transform:none; }
+    /* Terminal Body */
+    .terminal-body {
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      position: relative;
     }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .terminal-body .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1rem;
+      background-color: var(--accent-color);
+      animation: blink 0.5s infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
 
+    /* Terminal Sections */
+    .section {
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .section-content {
+      white-space: pre-wrap;
+    }
+
+    /* Responsive Styles */
     @media (max-width: 768px) {
-      .nav-center { display: none; }
-      .nav-links a:not(.nav-cta) { display: none; }
-      .hero-desc { padding: 0 1rem; }
-      .terminal { margin: 0 1rem; }
-      .footer-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+      body { padding: 1rem; }
+      .terminal { padding: 0.5rem; }
     }
   </style>
 </head>
 <body>
-
-<nav>
-  <a href="/" class="nav-logo">RHYSTIC<em>·</em>AI</a>
-  <div class="nav-status">
-    <span class="status-dot"></span>
-    INTELLIGENT AGENT SYSTEMS
-  </div>
-  <div class="nav-links">
-    <a href="#study" class="nav-cta">TRY STUDY</a>
-  </div>
-</nav>
-
-<section class="hero">
-  <div class="hero-glow"></div>
-
-  <div class="hero-content">
-    <div class="hero-eyebrow">INTELLIGENT AGENT SYSTEMS</div>
-
-    <h1 class="hero-wordmark">
-      RHYSTIC<span class="highlight">.</span>AI
-    </h1>
-
-    <div class="hero-domain">RHYSTIC · AI</div>
-
-    <div class="hero-rule"></div>
-
-    <p class="hero-desc">
-      We build autonomous agents that learn your domain, capture knowledge, and surface insights before you think to ask.
-    </p>
-
-    <div class="hero-btns">
-      <a href="#study" class="btn-a">TRY STUDY</a>
-      <a href="#terminal" class="btn-b">SEE IT RUN</a>
-    </div>
-  </div>
-
-  <div class="hero-ticker">
-    <div class="ticker-track">
-      <span class="ticker-item"><b>▸</b>AUTONOMOUS AGENTS</span>
-      <span class="ticker-item"><b>▸</b>KNOWLEDGE CAPTURE</span>
-      <span class="ticker-item"><b>▸</b>CONTINUOUS LEARNING</span>
-      <span class="ticker-item"><b>▸</b>DOMAIN SPECIALIZATION</span>
-      <span class="ticker-item"><b>▸</b>PRIVATE DEPLOYMENT</span>
-      <span class="ticker-item"><b>▸</b>AUTONOMOUS AGENTS</span>
-      <span class="ticker-item"><b>▸</b>KNOWLEDGE CAPTURE</span>
-      <span class="ticker-item"><b>▸</b>CONTINUOUS LEARNING</span>
-      <span class="ticker-item"><b>▸</b>DOMAIN SPECIALIZATION</span>
-      <span class="ticker-item"><b>▸</b>PRIVATE DEPLOYMENT</span>
-    </div>
-  </div>
-</section>
-
-<section id="terminal" class="terminal-section">
   <div class="terminal">
-    <div class="t-bar">
-      <div class="t-dot t-d1"></div>
-      <div class="t-dot t-d2"></div>
-      <div class="t-dot t-d3"></div>
-      <div class="t-label">STUDY // AGENT ACTIVE</div>
+    <div class="terminal-header">
+      <div class="dot red"></div>
+      <div class="dot yellow"></div>
+      <div class="dot green"></div>
+      <div class="label">rhystic.ai — Study</div>
     </div>
-    <div class="t-body">
-      <div class="t-row"><span class="p">runner@study ~ $</span> <span class="c">rhystic agent --init</span></div>
-      <div class="t-row"><span class="o">✓ Agent online</span></div>
-      <div class="t-row"><span class="o">✓ Domain context loaded</span></div>
-      <div class="t-row"><span class="d">→ Awaiting input...</span></div>
-      <div class="t-row"> </div>
-      <div class="t-row"><span class="p">runner@study ~ $</span> <span class="c">study query "what did we decide last week"</span></div>
-      <div class="t-row"><span class="o">✓ Retrieving session history</span></div>
-      <div class="t-row"><span class="o">✓ Cross-referencing knowledge graph</span></div>
-      <div class="t-row"><span class="o">✓ Synthesis complete</span></div>
-      <div class="t-row"><span class="d">→ 3 decisions surfaced from team sync</span></div>
-      <div class="t-row"><span class="d">→ Action items extracted: 5</span></div>
-      <div class="t-row"> </div>
-      <div class="t-row"><span class="p">runner@study ~ $</span> <span class="t-cursor"></span></div>
+    <div class="terminal-body">
+      <div class="section">
+        <div class="section-title">Welcome to rhystic.ai</div>
+        <div class="section-content">
+We are a company that creates custom autonomous agents.
+Our flagship product is called "Study" - it's an intelligent workspace
+that learns your domain over time, captures knowledge continuously, 
+and surfaces insights before you even think to ask.
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Study</div>
+        <div class="section-content">
+Study is powered by advanced AI and machine learning models.
+It autonomously builds knowledge graphs of your data, 
+understands your workflows and processes, and provides
+intelligent assistance to boost your productivity.
+        </div>
+      </div>
+      <div class="section">
+        <div class="section-title">Get Started</div>
+        <div class="section-content">
+To try Study, visit our website at:
+<span class="cursor"></span>https://study.rhystic.ai
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-<section id="study" class="product-section">
-  <div class="product-label">// ONE PRODUCT</div>
-  <h2 class="product-name">STUDY<span class="highlight">.</span></h2>
-  <p class="product-desc">
-    An intelligent workspace that learns your domain over time. 
-    It captures knowledge continuously, reasons across your data, 
-    and surfaces what you need — before you ask.
-  </p>
-
-  <div class="product-features">
-    <span class="product-feature">Autonomous Agents</span>
-    <span class="product-feature">Knowledge Graphs</span>
-    <span class="product-feature">Private Deployment</span>
-    <span class="product-feature">Domain Learning</span>
-  </div>
-
-  <a href="https://study.rhystic.ai" class="product-cta">
-    Enter Study →
-  </a>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <a href="/" class="footer-logo">RHYSTIC<em>·</em>AI</a>
-    <div class="footer-links">
-      <a href="https://study.rhystic.ai">Study</a>
-      <a href="mailto:hello@rhystic.ai">Contact</a>
-    </div>
-    <div class="footer-copy">© 2025 RHYSTIC.AI</div>
-  </div>
-</footer>
-
 </body>
 </html>
