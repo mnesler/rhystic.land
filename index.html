@@ -91,7 +91,7 @@
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 9000;
-      height: 48px;
+      height: 64px;
       display: flex; align-items: stretch;
       background: var(--bg);
       border-bottom: 4px solid var(--navy);
@@ -112,7 +112,7 @@
 
     .nav-logo {
       font-family: var(--font-display);
-      font-size: 1.1rem; letter-spacing: 0.1em;
+      font-size: 2.2rem; letter-spacing: 0.1em;
       color: var(--white); text-decoration: none;
       padding: 0 1.5rem;
       display: flex; align-items: center;
@@ -126,7 +126,7 @@
       color: var(--violet);
       margin-left: 6px;
       animation: blink 1s step-end infinite;
-      font-size: 0.7rem;
+      font-size: 1.4rem;
     }
 
     .nav-mid {
@@ -134,7 +134,7 @@
       padding: 0 1.5rem; gap: 1.5rem;
     }
     .nav-chip {
-      font-size: 0.6rem; letter-spacing: 0.15em;
+      font-size: 1.2rem; letter-spacing: 0.15em;
       display: flex; align-items: center; gap: 6px;
     }
     .chip-led {
@@ -149,7 +149,7 @@
     .nav-links { display: flex; align-items: stretch; border-left: 4px solid var(--navy); }
     .nav-links a {
       font-family: var(--font-mono);
-      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-size: 1.24rem; letter-spacing: 0.15em; text-transform: uppercase;
       color: var(--dimmer); text-decoration: none;
       padding: 0 1.2rem;
       display: flex; align-items: center;
@@ -798,19 +798,10 @@
 <nav>
   <a href="/" class="nav-logo">RHYSTIC<em>.</em>AI</a>
   <div class="nav-mid">
-    <div class="nav-chip">
-      <span class="chip-led"></span>
-      AI CONSULTING &amp; CUSTOM SOFTWARE
-    </div>
-    <div class="nav-chip">
-      <span class="chip-led" style="background:var(--pink); animation-delay:0.8s;"></span>
-      RHYSTIC CORE AGENT // ACTIVE
-    </div>
   </div>
   <div class="nav-links">
     <a href="#study">STUDY</a>
     <a href="#approach">APPROACH</a>
-    <a href="https://study.rhystic.ai" class="nav-cta">ENTER STUDY</a>
   </div>
 </nav>
 
@@ -1265,6 +1256,13 @@ reveals.forEach(el => io.observe(el));
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 
