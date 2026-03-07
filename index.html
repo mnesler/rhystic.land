@@ -786,6 +786,90 @@
       .cta-inner { flex-direction: column; }
       nav .nav-links a:not(.nav-cta) { display: none; }
       .nav-mid { display: none; }
+      .team-grid { grid-template-columns: 1fr !important; }
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      background: var(--navy);
+      padding: 4px;
+    }
+    .team-card {
+      background: var(--bg2);
+      padding: 2rem 1.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.1s steps(2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .team-card:hover { background: var(--panel); }
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--purple) 0, var(--purple) 8px,
+        transparent 8px, transparent 16px
+      );
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s steps(4);
+    }
+    .team-card:hover::before { transform: scaleX(1); }
+    .team-ascii {
+      margin-bottom: 1.5rem;
+      background: var(--bg);
+      padding: 1rem;
+      border: 2px solid rgba(77,47,178,0.3);
+    }
+    .team-info {
+      position: relative;
+      z-index: 1;
+    }
+    .team-pronouns {
+      font-size: 0.48rem;
+      letter-spacing: 0.2em;
+      margin-bottom: 0.25rem;
+    }
+    .team-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .team-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .team-streak {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14,33,160,0.3);
+      border: 2px solid var(--navy);
+      padding: 6px 12px;
+    }
+    .streak-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--pink);
+    }
+    .streak-label {
+      font-size: 0.42rem;
+      letter-spacing: 0.15em;
+      color: var(--dimmer);
     }
   </style>
 </head>
@@ -801,7 +885,7 @@
   </div>
   <div class="nav-links">
     <a href="#study">STUDY</a>
-    <a href="#approach">APPROACH</a>
+    <a href="#team">TEAM</a>
   </div>
 </nav>
 
@@ -988,61 +1072,196 @@
   </div>
 </section>
 
-<!-- ══ APPROACH ══ -->
+<!-- ══ TEAM ══ -->
 <div class="px-border-top" style="background: repeating-linear-gradient(90deg, var(--violet) 0, var(--violet) 8px, var(--pink) 8px, var(--pink) 16px, transparent 16px, transparent 24px);"></div>
-<section id="approach" style="background: var(--bg);">
+<section id="team" style="background: var(--bg);">
 
   <div class="section-wrap" style="padding: 7rem 3rem 0;">
     <div class="reveal">
-      <div style="font-size:0.58rem; letter-spacing:0.35em; color:var(--violet); margin-bottom:0.6rem;">// 02 — HOW WE WORK</div>
-      <h2 style="font-family:var(--font-display); font-size:clamp(2.2rem,4.5vw,3.8rem); font-weight:700; letter-spacing:-0.02em; line-height:1; color:var(--white); text-shadow:3px 3px 0 var(--navy); margin-bottom:3rem;">THE<br/>APPROACH</h2>
+      <div style="font-size:0.58rem; letter-spacing:0.35em; color:var(--pink); margin-bottom:0.6rem;">// THE SQUAD</div>
+      <h2 style="font-family:var(--font-display); font-size:clamp(2.2rem,4.5vw,3.8rem); font-weight:700; letter-spacing:-0.02em; line-height:1; color:var(--white); text-shadow:3px 3px 0 var(--navy); margin-bottom:1rem;">MEET THE<br/>TEAM</h2>
+      <p style="color:var(--dim); font-size:0.95rem; max-width:500px; line-height:1.7;">The devs behind the magic. Token streak = consecutive days shipping code.</p>
     </div>
   </div>
 
-  <div class="approach-grid reveal" style="margin: 0;">
-    <div class="approach-cell">
-      <div class="cell-phase phase-1">PHASE 01</div>
-      <div class="cell-num">01</div>
-      <div class="cell-title">UNDERSTAND</div>
-      <p class="cell-text">We spend real time in your domain before recommending anything. Understanding what you actually need comes before any solution.</p>
+  <div class="team-grid reveal" style="margin: 0;">
+    <!-- Team Member 1 -->
+    <div class="team-card">
+      <div class="team-ascii">
+<pre style="font-family:monospace; font-size:0.55rem; line-height:1.1; color:var(--violet); margin:0;">
+    █████
+   ██░░░██
+   ██▼▼██
+  ██┌─┐██
+  ██│░│██
+  ██└─┘██
+   █████
+  ██░░░░██
+ ███░░░░██
+</pre>
+      </div>
+      <div class="team-info">
+        <div class="team-pronouns" style="color:var(--pink); font-size:0.48rem; letter-spacing:0.2em;">she/her</div>
+        <div class="team-name">Sarah Chen</div>
+        <div class="team-title">Lead AI Architect</div>
+        <div class="team-streak">
+          <span class="streak-num">847</span>
+          <span class="streak-label">DAY STREAK</span>
+        </div>
+      </div>
     </div>
-    <div class="approach-cell">
-      <div class="cell-phase phase-2">PHASE 02</div>
-      <div class="cell-num">02</div>
-      <div class="cell-title">BUILD</div>
-      <p class="cell-text">Custom systems — not templates. Whether consulting or a full software build, everything is specific to your context and goals.</p>
+
+    <!-- Team Member 2 -->
+    <div class="team-card">
+      <div class="team-ascii">
+<pre style="font-family:monospace; font-size:0.55rem; line-height:1.1; color:var(--purple); margin:0;">
+    █████
+   ██░░░██
+   ██◆◆██
+  ██┌─┐██
+  ██│░│██
+  ██└─┘██
+   █████
+  ██░░░░██
+ ███░░░░██
+</pre>
+      </div>
+      <div class="team-info">
+        <div class="team-pronouns" style="color:var(--navy); font-size:0.48rem; letter-spacing:0.2em;">he/him</div>
+        <div class="team-name">Marcus Johnson</div>
+        <div class="team-title">Senior ML Engineer</div>
+        <div class="team-streak">
+          <span class="streak-num">1,203</span>
+          <span class="streak-label">DAY STREAK</span>
+        </div>
+      </div>
     </div>
-    <div class="approach-cell">
-      <div class="cell-phase phase-3">PHASE 03</div>
-      <div class="cell-num">03</div>
-      <div class="cell-title">EVOLVE</div>
-      <p class="cell-text">AI systems improve with use. We stay close — iterating, refining, making sure what we built keeps delivering value over time.</p>
+
+    <!-- Team Member 3 -->
+    <div class="team-card">
+      <div class="team-ascii">
+<pre style="font-family:monospace; font-size:0.55rem; line-height:1.1; color:var(--pink); margin:0;">
+    █████
+   ██░░░██
+   ██◇◇██
+  ██┌─┐██
+  ██│░│██
+  ██└─┘██
+   █████
+  ██░░░░██
+ ███░░░░██
+</pre>
+      </div>
+      <div class="team-info">
+        <div class="team-pronouns" style="color:var(--pink); font-size:0.48rem; letter-spacing:0.2em;">she/her</div>
+        <div class="team-name">Priya Patel</div>
+        <div class="team-title">Full Stack Developer</div>
+        <div class="team-streak">
+          <span class="streak-num">512</span>
+          <span class="streak-label">DAY STREAK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Member 4 -->
+    <div class="team-card">
+      <div class="team-ascii">
+<pre style="font-family:monospace; font-size:0.55rem; line-height:1.1; color:var(--violet); margin:0;">
+    █████
+   ██░░░██
+   ██○○██
+  ██┌─┐██
+  ██│░│██
+  ██└─┘██
+   █████
+  ██░░░░██
+ ███░░░░██
+</pre>
+      </div>
+      <div class="team-info">
+        <div class="team-pronouns" style="color:var(--violet); font-size:0.48rem; letter-spacing:0.2em;">they/them</div>
+        <div class="team-name">Alex Rivera</div>
+        <div class="team-title">DevOps Engineer</div>
+        <div class="team-streak">
+          <span class="streak-num">789</span>
+          <span class="streak-label">DAY STREAK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Member 5 -->
+    <div class="team-card">
+      <div class="team-ascii">
+<pre style="font-family:monospace; font-size:0.55rem; line-height:1.1; color:var(--pink); margin:0;">
+    █████
+   ██░░░██
+   ██☆☆██
+  ██┌─┐██
+  ██│░│██
+  ██└─┘██
+   █████
+  ██░░░░██
+ ███░░░░██
+</pre>
+      </div>
+      <div class="team-info">
+        <div class="team-pronouns" style="color:var(--pink); font-size:0.48rem; letter-spacing:0.2em;">she/her</div>
+        <div class="team-name">Jessica Kim</div>
+        <div class="team-title">Prompt Engineer</div>
+        <div class="team-streak">
+          <span class="streak-num">634</span>
+          <span class="streak-label">DAY STREAK</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Member 6 -->
+    <div class="team-card">
+      <div class="team-ascii">
+<pre style="font-family:monospace; font-size:0.55rem; line-height:1.1; color:var(--purple); margin:0;">
+    █████
+   ██░░░██
+   ██△△██
+  ██┌─┐██
+  ██│░│██
+  ██└─┘██
+   █████
+  ██░░░░██
+ ███░░░░██
+</pre>
+      </div>
+      <div class="team-info">
+        <div class="team-pronouns" style="color:var(--navy); font-size:0.48rem; letter-spacing:0.2em;">he/him</div>
+        <div class="team-name">David Okonkwo</div>
+        <div class="team-title">Backend Specialist</div>
+        <div class="team-streak">
+          <span class="streak-num">956</span>
+          <span class="streak-label">DAY STREAK</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- protocol terminal -->
+  <!-- team terminal stats -->
   <div class="proto-term reveal">
     <div class="proto-term-inner">
       <div class="proto-col">
-        <div class="tl" style="margin-bottom:8px;"><span style="color:var(--dimmer); font-size:0.6rem;">// PHASE 01 — UNDERSTAND</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">domain audit</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">stakeholder map</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">opportunity scan</span></div>
-<div class="tl"><span class="o">  [→]</span> <span class="d">scope defined</span></div>
+        <div class="tl" style="margin-bottom:8px;"><span style="color:var(--dimmer); font-size:0.6rem;">// TEAM STATS</span></div>
+<div class="tl"><span class="g">  [OK]</span> <span class="d">total devs: 6</span></div>
+<div class="tl"><span class="g">  [OK]</span> <span class="d">combined streak: 4,941 days</span></div>
+<div class="tl"><span class="o">  [→]</span> <span class="d">avg streak: 824 days</span></div>
       </div>
       <div class="proto-col" style="border-left: 4px solid var(--navy);">
-        <div class="tl" style="margin-bottom:8px;"><span style="color:var(--dimmer); font-size:0.6rem;">// PHASE 02 — BUILD</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">prototype</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">custom training</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">agent design</span></div>
-<div class="tl"><span class="o">  [→]</span> <span class="d">system deployed</span></div>
+        <div class="tl" style="margin-bottom:8px;"><span style="color:var(--dimmer); font-size:0.6rem;">// DIVERSITY MATTERS</span></div>
+<div class="tl"><span class="g">  [OK]</span> <span class="d">women identifying: 3</span></div>
+<div class="tl"><span class="g">  [OK]</span> <span class="d">non-binary: 1</span></div>
+<div class="tl"><span class="o">  [→]</span> <span class="d">we're building for everyone</span></div>
       </div>
       <div class="proto-col" style="border-left: 4px solid var(--navy);">
-        <div class="tl" style="margin-bottom:8px;"><span style="color:var(--dimmer); font-size:0.6rem;">// PHASE 03 — EVOLVE</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">monitor</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">iterate</span></div>
-<div class="tl"><span class="g">  [OK]</span> <span class="d">improve</span></div>
-<div class="tl"><span class="o">  [→]</span> <span class="d">ongoing</span></div>
+        <div class="tl" style="margin-bottom:8px;"><span style="color:var(--dimmer); font-size:0.6rem;">// CURRENTLY</span></div>
+<div class="tl"><span class="g">  [OK]</span> <span class="d">shipping: Rhystic Study</span></div>
+<div class="tl"><span class="g">  [OK]</span> <span class="d">mode: extremely online</span></div>
+<div class="tl"><span class="o">  [→]</span> <span class="d">accepting cosmic energy ☕</span></div>
       </div>
     </div>
   </div>
@@ -1070,7 +1289,7 @@
     <a href="/" class="footer-logo">RHYSTIC<em>.</em>AI</a>
     <div class="footer-links">
       <a href="#study">Study</a>
-      <a href="#approach">Approach</a>
+      <a href="#team">Team</a>
       <a href="mailto:hello@rhystic.ai">Contact</a>
     </div>
     <div class="footer-copy">© 2025 RHYSTIC.AI — ALL SYSTEMS OPERATIONAL</div>
@@ -1256,6 +1475,11 @@ reveals.forEach(el => io.observe(el));
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
